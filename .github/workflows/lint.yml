@@ -19,4 +19,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         HADOLINT_ACTION_DOCKERFILE_FOLDER: .
       with:
-        ignore: 'DL3018'
+        ignore: 'DL3018 DL3013'
