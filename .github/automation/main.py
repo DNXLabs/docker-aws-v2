@@ -72,7 +72,7 @@ print('Pushed commit {} to {} branch:\n    {}'.format(
 #Create new release
 data = {
     'name': '%s-dnx1' % tag_name_aws_cli,
-    'tag_name': tag_name_aws_cli,
+    'tag_name': '%s-dnx1' % tag_name_aws_cli,
     'body': '- Bump aws-cli version to v%s.' % tag_name_aws_cli
 }
 
