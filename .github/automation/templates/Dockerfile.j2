@@ -25,7 +25,7 @@ RUN apk --no-cache update && \
         g++ \
         zip \
         git  && \
-    pip3 --no-cache-dir install --upgrade pip==21.1.1 setuptools==46.1.3 dnxsso==0.5.0 boto3 && \
+    pip3 --no-cache-dir install --upgrade pip setuptools dnxsso boto3 && \
     update-ca-certificates && \
     rm -rf /var/cache/apk/*
 
