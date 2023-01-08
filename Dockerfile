@@ -4,7 +4,7 @@ FROM tbrock/saw:v0.2.2 as saw
 FROM alpine:3.13
 
 ENV GLIBC_VERSION=2.31-r0
-ENV AWSCLI_VERSION=2.9.12
+ENV AWSCLI_VERSION=2.9.13
 
 RUN apk --no-cache update && \
     apk --no-cache add \
