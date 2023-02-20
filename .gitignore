@@ -1,3 +1,4 @@
 .idea
 .github/automation/venv
 .github/automation/Dockerfile
+.DS_Store
