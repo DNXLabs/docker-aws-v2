@@ -24,7 +24,7 @@ RUN apk --no-cache update && \
         git  && \
     pip3 --no-cache-dir install --upgrade pip setuptools dnxsso boto3 && \
     update-ca-certificates && \
-    pip install awscliv2==$AWSCLI_VERSION  && \
+    pip3 --no-cache-dir install awscliv2==$AWSCLI_VERSION  && \
     ln -s /usr/local/bin/awscliv2 /usr/local/bin/aws && \
     rm -rf /var/cache/apk/*
 
