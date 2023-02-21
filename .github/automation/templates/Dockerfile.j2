@@ -9,8 +9,9 @@ ARG AWS_CLI_VERSION={{ tag_name_aws_cli }}
 
 WORKDIR /aws-cli
 
-RUN apk add --no-cache git unzip groff build-base libffi-dev cmake
-RUN git clone --branch ${AWS_CLI_VERSION} "https://github.com/aws/aws-cli.git" /aws-cli \
+RUN apk add --no-cache  groff build-base libffi-dev cmake curl
+RUN curl -L "https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz" -o aws_cli.tar.gz \
+    && tar -vzxf aws_cli.tar.gz -C /aws-cli  --strip-components=1 \
     && python -m venv venv \
     && . venv/bin/activate \
     && scripts/installers/make-exe \
