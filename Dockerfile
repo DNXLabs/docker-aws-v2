@@ -5,13 +5,14 @@ FROM tbrock/saw:v0.2.2 as saw
 FROM python:3.11-alpine${ALPINE_VERSION} as base
 
 FROM base as builder
-ARG AWS_CLI_VERSION=2.9.23
+ARG AWS_CLI_VERSION=2.10.1
 
 WORKDIR /aws-cli
 
-RUN apk add --no-cache  groff build-base libffi-dev cmake curl
-RUN curl -L "https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz" -o aws_cli.tar.gz \
-    && tar -vzxf aws_cli.tar.gz -C /aws-cli  --strip-components=1 \
+RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
+    && mkdir /opt/download \
+    && curl -s -L "https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz" -o /opt/download/aws_cli.tar.gz \
+    && tar -vzxf /opt/download/aws_cli.tar.gz -C /aws-cli  --strip-components=1 \
     && python -m venv venv \
     && . venv/bin/activate \
     && scripts/installers/make-exe \
