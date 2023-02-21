@@ -7,16 +7,16 @@ FROM python:3.11-alpine${ALPINE_VERSION} as base
 FROM base as builder
 ARG AWS_CLI_VERSION=2.10.1
 
-RUN apk add --no-cache git unzip groff build-base libffi-dev cmake
-RUN git clone --branch ${AWS_CLI_VERSION} "https://github.com/aws/aws-cli.git" aws-cli
+WORKDIR /aws-cli
 
-WORKDIR aws-cli
-RUN python -m venv venv
-RUN . venv/bin/activate
-RUN scripts/installers/make-exe
-RUN unzip -q dist/awscli-exe.zip
-RUN aws/install --bin-dir /aws-cli-bin
-RUN /aws-cli-bin/aws --version
+RUN apk add --no-cache git unzip groff build-base libffi-dev cmake
+RUN git clone --branch ${AWS_CLI_VERSION} "https://github.com/aws/aws-cli.git" /aws-cli \
+    && python -m venv venv \
+    && . venv/bin/activate \
+    && scripts/installers/make-exe \
+    && unzip -q dist/awscli-exe.zip \
+    && aws/install --bin-dir /aws-cli-bin \
+    && /aws-cli-bin/aws --version
 
 # build the final image
 FROM base as final
