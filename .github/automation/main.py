@@ -6,7 +6,7 @@ import semver
 import github3
 from jinja2 import Environment, FileSystemLoader
 
-LATEST_RELEASES_PATH_AWS_CLI = 'https://api.github.com/repos/youtype/awscliv2/git/refs/tags'
+LATEST_RELEASES_PATH_AWS_CLI = 'https://api.github.com/repos/aws/aws-cli/git/refs/tags'
 LATEST_RELEASES_PATH_DNX_AWS_CLI = 'https://api.github.com/repos/DNXLabs/docker-aws-v2/releases/latest'
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 GITHUB_REPOSITORY_ID = '368183359'
