@@ -5,9 +5,10 @@ FROM tbrock/saw:v0.2.2 as saw
 FROM python:3.11-alpine${ALPINE_VERSION} as base
 
 FROM base as builder
-ARG AWS_CLI_VERSION=2.10.2
+ARG AWS_CLI_VERSION=2.10.3
 
 WORKDIR /aws-cli
+
 
 RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
     && mkdir /opt/download \
