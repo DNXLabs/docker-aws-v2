@@ -13,6 +13,7 @@ RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
     && mkdir /opt/download \
     && curl -s -L "https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz" -o /opt/download/aws_cli.tar.gz \
     && tar -vzxf /opt/download/aws_cli.tar.gz -C /aws-cli  --strip-components=1 \
+    && pip install --no-cache-dir --upgrade pip  \
     && python -m venv venv \
     && . venv/bin/activate \
     && scripts/installers/make-exe \
@@ -37,7 +38,7 @@ RUN apk add --no-cache  binutils \
         g++ \
         zip \
         git \
-    && pip3 --no-cache-dir install setuptools dnxsso \
+    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
