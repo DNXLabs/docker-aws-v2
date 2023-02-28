@@ -11,7 +11,7 @@ WORKDIR /aws-cli
 
 RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
     && mkdir /opt/download \
-    && curl -s -L "https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz" -o /opt/download/aws_cli.tar.gz \
+    && curl -s -L https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz -o /opt/download/aws_cli.tar.gz \
     && tar -vzxf /opt/download/aws_cli.tar.gz -C /aws-cli  --strip-components=1 \
     && pip install --no-cache-dir --upgrade pip  \
     && python -m venv venv \
