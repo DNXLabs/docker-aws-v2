@@ -5,10 +5,9 @@ FROM tbrock/saw:v0.2.2 as saw
 FROM python:3.11-alpine${ALPINE_VERSION} as base
 
 FROM base as builder
-ARG AWS_CLI_VERSION=2.10.3
+ARG AWS_CLI_VERSION=2.10.4
 
 WORKDIR /aws-cli
-
 
 RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
     && mkdir /opt/download \
@@ -41,7 +40,7 @@ RUN apk add --no-cache  binutils \
         git \
     && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso \
     && update-ca-certificates \
-    && rm -rf /var/cache/apk/* 
+    && rm -rf /var/cache/apk/*
 
 
 COPY --from=builder /usr/local/aws-cli/ /usr/local/aws-cli/
