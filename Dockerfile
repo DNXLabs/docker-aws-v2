@@ -5,7 +5,7 @@ FROM tbrock/saw:v0.2.2 as saw
 FROM python:3.11-alpine${ALPINE_VERSION} as base
 
 FROM base as builder
-ARG AWS_CLI_VERSION=2.13.16
+ARG AWS_CLI_VERSION=2.13.17
 
 WORKDIR /aws-cli
 
