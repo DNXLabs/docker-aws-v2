@@ -5,7 +5,7 @@ FROM tbrock/saw:v0.2.2 as saw
 FROM python:3.11-alpine${ALPINE_VERSION} as base
 
 FROM base as builder
-ARG AWS_CLI_VERSION=2.17.20
+ARG AWS_CLI_VERSION=2.17.21
 
 WORKDIR /aws-cli
 
@@ -38,7 +38,7 @@ RUN apk add --no-cache  binutils \
         g++ \
         zip \
         git \
-    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso awsebcli \
+    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
