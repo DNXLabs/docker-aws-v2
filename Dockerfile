@@ -42,7 +42,6 @@ RUN apk add --no-cache  binutils \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
-
 COPY --from=builder /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=builder /aws-cli-bin/ /usr/local/bin/
 COPY --from=saw /bin/saw /bin/saw
