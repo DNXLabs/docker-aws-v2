@@ -2,7 +2,7 @@ ARG ALPINE_VERSION=3.17
 
 FROM tbrock/saw:v0.2.2 as saw
 
-FROM python:3.11-alpine${ALPINE_VERSION} as base
+FROM python:3.12-alpine as base
 
 FROM base as builder
 ARG AWS_CLI_VERSION={{ tag_name_aws_cli }}
@@ -13,9 +13,10 @@ RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
     && mkdir /opt/download \
     && curl -s -L https://github.com/aws/aws-cli/archive/refs/tags/${AWS_CLI_VERSION}.tar.gz -o /opt/download/aws_cli.tar.gz \
     && tar -vzxf /opt/download/aws_cli.tar.gz -C /aws-cli  --strip-components=1 \
-    && pip install --no-cache-dir --upgrade pip  \
+    && pip install --no-cache-dir --upgrade pip setuptools \
     && python -m venv venv \
     && . venv/bin/activate \
+    && pip install setuptools \
     && scripts/installers/make-exe \
     && unzip -q dist/awscli-exe.zip \
     && aws/install --bin-dir /aws-cli-bin \
@@ -38,7 +39,7 @@ RUN apk add --no-cache  binutils \
         g++ \
         zip \
         git \
-    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso \
+    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso boto3>=1.40.16 \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
