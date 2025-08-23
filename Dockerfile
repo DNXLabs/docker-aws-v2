@@ -16,7 +16,7 @@ RUN apk add --no-cache  groff build-base libffi-dev cmake curl \
     && pip install --no-cache-dir --upgrade pip setuptools \
     && python -m venv venv \
     && . venv/bin/activate \
-    && pip install setuptools \
+    && pip install --no-cache-dir setuptools \
     && scripts/installers/make-exe \
     && unzip -q dist/awscli-exe.zip \
     && aws/install --bin-dir /aws-cli-bin \

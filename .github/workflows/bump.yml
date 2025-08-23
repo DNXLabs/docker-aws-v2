@@ -5,6 +5,17 @@ on:
     # * is a special character in YAML so you have to quote this string
     - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      force_build:
+        description: 'Force build even if versions are the same'
+        required: false
+        default: 'true'
+        type: boolean
+      custom_tag_suffix:
+        description: 'Custom DNX tag suffix (e.g., dnx2, dnx3).'
+        required: false
+        default: 'dnx1'
+        type: string
 
 jobs:
   build:
@@ -25,3 +36,5 @@ jobs:
         python main.py
       env:
         GITHUB_TOKEN: ${{secrets.DNX_GITHUB_TOKEN}}
+        FORCE_BUILD: ${{ github.event.inputs.force_build || 'false' }}
+        CUSTOM_TAG_SUFFIX: ${{ github.event.inputs.custom_tag_suffix || '' }}

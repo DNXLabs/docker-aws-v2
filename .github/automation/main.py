@@ -11,6 +11,8 @@ LATEST_RELEASES_PATH_DNX_AWS_CLI = 'https://api.github.com/repos/DNXLabs/docker-
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 GITHUB_REPOSITORY_ID = '368183359'
 DEFAULT_BRANCH = os.getenv('DEFAULT_BRANCH', 'master')
+FORCE_BUILD = os.getenv('FORCE_BUILD', 'false').lower() == 'true'
+CUSTOM_TAG_SUFFIX = os.getenv('CUSTOM_TAG_SUFFIX', '')
 
 
 # AWS-CLI upstream
@@ -31,9 +33,19 @@ tag_name_docker_aws_v2 = release_docker_aws_v2_json_obj.get('tag_name').split('-
 print('Upstream version: %s' % tag_name_aws_cli)
 print('DNX docker-aws-v2 version: %s' % tag_name_docker_aws_v2)
 
-if semver.compare(tag_name_aws_cli, tag_name_docker_aws_v2) != 1:
+# Determine DNX suffix
+if CUSTOM_TAG_SUFFIX:
+    dnx_suffix = CUSTOM_TAG_SUFFIX
+    print(f'Using custom suffix: {dnx_suffix}')
+else:
+    dnx_suffix = 'dnx1'
+
+# Check if we should proceed
+if semver.compare(tag_name_aws_cli, tag_name_docker_aws_v2) != 1 and not FORCE_BUILD:
     print('Nothing to do, the upstream is in the same version or lower version.')
     sys.exit()
+elif FORCE_BUILD:
+    print('Force build requested, proceeding with build.')
 
 # Generate Dockerfile template with new upstream version
 root = os.path.dirname(os.path.abspath(__file__))
@@ -71,8 +83,8 @@ print('Pushed commit {} to {} branch:\n    {}'.format(
 
 #Create new release
 data = {
-    'name': '%s-dnx1' % tag_name_aws_cli,
-    'tag_name': '%s-dnx1' % tag_name_aws_cli,
+    'name': '%s-%s' % (tag_name_aws_cli, dnx_suffix),
+    'tag_name': '%s-%s' % (tag_name_aws_cli, dnx_suffix),
     'body': '- Bump aws-cli version to v%s.' % tag_name_aws_cli
 }
 
