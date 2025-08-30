@@ -39,7 +39,7 @@ RUN apk add --no-cache  binutils \
         g++ \
         zip \
         git \
-    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso boto3>=1.40.16 \
+    && pip install --no-cache-dir --upgrade pip && pip --no-cache-dir install setuptools dnxsso boto3>=1.40.16 requests \
     && update-ca-certificates \
     && rm -rf /var/cache/apk/*
 
